@@ -5,8 +5,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Cut cut= new Cut(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\sample.tsv"));
-        cut.cutTsv(1);
+        Cut cut= new Cut(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\file.tsv"));
+        cut.cutTsv(1, 't');
     }
 
 //        for (int i = 0; i < abc.length(); ) {
