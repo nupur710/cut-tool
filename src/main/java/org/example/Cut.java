@@ -59,10 +59,28 @@ public class Cut {
         for(int i= 0; i<s1.size(); i++) System.out.println(s1.get(i));
     }
 
-    public void cut(int... numbers) throws IOException {
-        List<String> jj= readFromBr("\t");
+    public List[] cut(int head, int... n) throws IOException {
+        List<String> jj= readFromBr(",");
         int columnCount= columnCount();
+        ArrayList<String>[] arr= new ArrayList[n.length];
+        for(int i= 0; i < arr.length; i++) {
+            arr[i]= add(jj, columnCount, n[i], head);
+        }
+        String[][] s= structure(arr);
+        printMultiple(s, n.length, arr[0].size());
+        return arr;
+    }
 
+    private String[][] structure(List[] data) {
+        int n= data.length;
+        int m= data[0].size();
+        Object[][] fill= new String[data.length][data[0].size()];
+        for(int i= 0; i < data.length; i++) {
+            for(int j= 0; j < data[0].size(); j++) {
+                fill[i][j]= data[i].get(j);
+            }
+           // printMultiple((String[][])fill, n, m);
+        } return (String[][]) fill;
     }
     private int columnCount() throws IOException {
         br.reset();
@@ -71,6 +89,15 @@ public class Cut {
         for(int i= 0; i<column.length(); i++) {
             if(column.charAt(i) == '\t' || column.charAt(i) == ',') count++;
         } return count+1;
+    }
+
+    private void printMultiple(String[][] s, int r, int c) {
+        for(int j= 0; j < c; j++) {
+            for(int i= 0; i < r; i++) {
+                System.out.print(s[i][j] + "\t");
+            }
+            System.out.println();
+        }
     }
 
     private List<String> buildArray(String text, char c) {
@@ -91,7 +118,7 @@ public class Cut {
         return arr;
     }
 
-    private List<String> add(List<String> str, int columns, int n) {
+    private ArrayList<String> add(List<String> str, int columns, int n) {
         ArrayList<String> arr= new ArrayList<>();
         if(n > columns) throw new IllegalArgumentException(n + " exceeds columns");
         for(int i= n; i < str.size(); ) {
@@ -100,7 +127,7 @@ public class Cut {
         } return arr;
     }
 
-    private List<String> add(List<String> str, int columns, int n, int head) {
+    private ArrayList<String> add(List<String> str, int columns, int n, int head) {
         ArrayList<String> arr= new ArrayList<>();
         if(n > columns) throw new IllegalArgumentException(n + " exceeds columns");
         for(int i= n; i < head*columns; ) {
