@@ -59,12 +59,13 @@ public class Cut {
         for(int i= 0; i<s1.size(); i++) System.out.println(s1.get(i));
     }
 
-    public List[] cut(int head, int... n) throws IOException {
+    public List[] cut(String head, int... n) throws IOException {
         List<String> jj= readFromBr(",");
         int columnCount= columnCount();
         ArrayList<String>[] arr= new ArrayList[n.length];
+        int h= Integer.parseInt(head);
         for(int i= 0; i < arr.length; i++) {
-            arr[i]= add(jj, columnCount, n[i], head);
+            arr[i]= add(jj, columnCount, n[i], h);
         }
         String[][] s= structure(arr);
         printMultiple(s, n.length, arr[0].size());
